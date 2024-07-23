@@ -1,10 +1,9 @@
 package com.blacklist.blacklist.database.repository;
 
-import jakarta.transaction.Transactional;
+import com.blacklist.blacklist.models.entity.Passports;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-@Transactional
-public interface BlockedUnits extends JpaRepository<BlockedUnits, Long> {
+public interface PassportsRepository extends JpaRepository<Passports, Long> {
 }

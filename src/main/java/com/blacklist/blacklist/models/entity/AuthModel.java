@@ -1,10 +1,8 @@
 package com.blacklist.blacklist.models.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 import java.util.Date;
 
@@ -13,20 +11,25 @@ import java.util.Date;
 @AllArgsConstructor
 @Entity
 @RequiredArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
 @Table(name = "auth")
-public class Auth {
+public class AuthModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    Long id;
 
     @Column(unique = true, name = "login")
-    private String login;
+    String login;
 
     @Column(name = "password")
-    private String password;
+    String password;
 
     @Column(name = "created_at")
-    private Date createdAt;
+    Date createdAt;
+
+    @ManyToOne
+    @JoinColumn(name = "role_id")
+    RolesModel rolesModel;
 
 }

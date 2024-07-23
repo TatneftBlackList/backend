@@ -1,10 +1,8 @@
 package com.blacklist.blacklist.models.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 import java.util.Date;
 
@@ -14,26 +12,27 @@ import java.util.Date;
 @RequiredArgsConstructor
 @Builder
 @Table(name = "black_units")
-public class BlockedUnits {
+@FieldDefaults(level = AccessLevel.PRIVATE)
+public class BlockedUnitsModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    Long id;
 
     @Column(name = "fio")
-    private String fio;
+    String fio;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "passport_id", referencedColumnName = "id")
-    private Passports passports;
+    PassportsModel passportsModel;
 
     @ManyToOne
     @JoinColumn(name = "company_id", nullable = false)
-    private Company company;
+    CompanyModel company;
 
     @Column(name = "reason")
-    private String reason;
+    String reason;
 
     @Column(name = "date_add_to_list")
-    private Date dateAddToList;
+    Date dateAddToList;
 }

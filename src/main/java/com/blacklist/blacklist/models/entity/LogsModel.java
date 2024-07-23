@@ -1,10 +1,8 @@
 package com.blacklist.blacklist.models.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 import java.util.Date;
 
@@ -13,16 +11,17 @@ import java.util.Date;
 @RequiredArgsConstructor
 @AllArgsConstructor
 @Builder
+@FieldDefaults(level = AccessLevel.PRIVATE)
 @Table(name = "logs")
-public class Logs {
+public class LogsModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    Long id;
 
     @Column(name = "name")
-    private String name;
+    String name;
 
     @Column(name = "created_at")
-    private Date createdAt;
+    Date createdAt;
 }

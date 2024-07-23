@@ -1,11 +1,10 @@
 package com.blacklist.blacklist.database.repository;
 
+import com.blacklist.blacklist.models.entity.Permissions;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-
 @Repository
-@Transactional
-public interface Roles extends JpaRepository<Roles, Long> {
+public interface PermissionsRepository extends JpaRepository<Permissions, Long> {
 }

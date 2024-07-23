@@ -1,10 +1,10 @@
 package com.blacklist.blacklist.database.repository;
 
+import com.blacklist.blacklist.controllers.Users;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-@Transactional
-public interface Logs extends JpaRepository<Logs, Long> {
+public interface UsersRepository extends JpaRepository<Users, Long> {
 }

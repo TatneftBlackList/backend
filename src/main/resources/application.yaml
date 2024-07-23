@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: blackList
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        jdbc:
+          lob:
+            non_contextual_creation: 'true'
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  datasource:
+    url: jdbc:postgresql://localhost:5432/tatneftBackend
+    username: postgres
+    password: 12345
+    driver-class-name: org.postgresql.Driver
+
+logging:
+  level:
+    org.hibernate.sql: debug
+    org.hibernate.orm.jdbc.bind: debug

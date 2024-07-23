@@ -1,10 +1,9 @@
 package com.blacklist.blacklist.models.entity;
 
+import com.blacklist.blacklist.controllers.BlockedUnits;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 import java.util.List;
 
@@ -14,15 +13,16 @@ import java.util.List;
 @AllArgsConstructor
 @RequiredArgsConstructor
 @Table(name = "company")
-public class Company {
+@FieldDefaults(level = AccessLevel.PRIVATE)
+public class CompanyModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    Long id;
 
     @Column(name = "name", unique = true)
-    private String name;
+    String name;
 
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
-    private List<BlockedUnits> blockedUnits;
+    List<BlockedUnitsModel> blockedUnitsModels;
 }
