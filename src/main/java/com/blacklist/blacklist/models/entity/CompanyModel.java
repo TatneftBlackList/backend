@@ -1,6 +1,5 @@
 package com.blacklist.blacklist.models.entity;
 
-import com.blacklist.blacklist.controllers.BlockedUnits;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -23,6 +22,6 @@ public class CompanyModel {
     @Column(name = "name", unique = true)
     String name;
 
-    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "companyModel", cascade = CascadeType.ALL)
     List<BlockedUnitsModel> blockedUnitsModels;
 }

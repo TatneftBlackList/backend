@@ -30,7 +30,7 @@ public class PassportsModel {
     @Column(name = "old_passport_number", unique = true, nullable = true)
     String oldPassportNumber;
 
-    @OneToOne(mappedBy = "passports")
-    BlockedUnitsModel blockedUnits;
+    @OneToOne(mappedBy = "passportsModel")
+    BlockedUnitsModel blockedUnitsModel;
 
 }

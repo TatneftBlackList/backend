@@ -23,7 +23,7 @@ public class RolesModel {
     @Column(length = 20)
     ERole name;
 
-    @OneToMany(mappedBy = "role")
+    @OneToMany(mappedBy = "rolesModel")
     Set<AuthModel> users;
 
 }

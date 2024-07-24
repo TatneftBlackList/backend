@@ -3,5 +3,5 @@ package com.blacklist.blacklist.controllers;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class BlockedUnits {
+public class UsersController {
 }

@@ -28,7 +28,7 @@ public class BlockedUnitsModel {
 
     @ManyToOne
     @JoinColumn(name = "company_id", nullable = false)
-    CompanyModel company;
+    CompanyModel companyModel;
 
     @Column(name = "reason")
     String reason;
