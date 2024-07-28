@@ -10,7 +10,7 @@ import org.hibernate.annotations.Type;
 import java.util.HashSet;
 import java.util.Set;
 
-@Entity
+@Entity(name = "permissions")
 @Builder
 @AllArgsConstructor
 @RequiredArgsConstructor
@@ -21,14 +21,12 @@ public class PermissionsModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    long id;
+    private long id;
 
     @Enumerated(EnumType.STRING)
-    @Type(PostgreSQLEnumType.class)
     @Column(name = "permission", columnDefinition = "permission")
-    EPermissions ePermissions;
+    private EPermissions ePermissions;
 
-    @ManyToMany(mappedBy = "permissions")
-    Set<UsersModel> usersModels = new HashSet<>();
-
+    @ManyToMany(mappedBy = "permissions", fetch = FetchType.LAZY)
+    private Set<UsersModel> usersModels = new HashSet<>();
 }

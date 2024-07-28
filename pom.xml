@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.3.1</version>
+        <version>3.1.5</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.black-list</groupId>
@@ -88,6 +88,11 @@
         </dependency>
 
         <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jsr310</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>org.hibernate.orm</groupId>
             <artifactId>hibernate-spatial</artifactId>
             <version>6.2.13.Final</version>
@@ -98,7 +103,6 @@
             <artifactId>hypersistence-utils-hibernate-62</artifactId>
             <version>3.6.1</version>
         </dependency>
-
 
 
 <!--        <dependency>-->

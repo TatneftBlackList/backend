@@ -1,6 +1,5 @@
 package com.blacklist.blacklist.controllers;
 
-import com.blacklist.blacklist.models.dto.UsersCreateUpdateDTO;
 import com.blacklist.blacklist.models.dto.UsersDTO;
 import com.blacklist.blacklist.service.UsersService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -34,8 +33,8 @@ public class UsersController {
 
     @PostMapping("/users")
     @Operation(summary = "Добавление пользователя")
-    public ResponseEntity<UsersDTO> createUser(@RequestBody UsersCreateUpdateDTO usersCreateUpdateDTO) {
-        UsersDTO usersDTO = usersService.addUser(usersCreateUpdateDTO);
+    public ResponseEntity<UsersDTO> createUser(@RequestBody UsersDTO userDTO) {
+        UsersDTO usersDTO = usersService.addUser(userDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(usersDTO);
     }
 }

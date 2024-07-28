@@ -5,18 +5,14 @@ import com.blacklist.blacklist.models.enums.EPermissions;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
 @Repository
-@Transactional
+@EnableJpaRepositories(considerNestedRepositories = true)
 public interface PermissionsRepository extends JpaRepository<PermissionsModel, Long> {
-     Optional<PermissionsModel> findByEPermissions(EPermissions ePermissions);
+     Optional<PermissionsModel> findByePermissions(EPermissions ePermissions);
 
-     @Query(value = """
-SELECT name FROM permissions WHERE name = :permission""", nativeQuery = true)
-     String findByName(@Param("permission") String permission);
 }

@@ -27,7 +27,7 @@ public class UsersModel {
     @Column(name = "last_name")
     String lastName;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
         name = "user_permissions",
         joinColumns = @JoinColumn(name = "user_id"),
