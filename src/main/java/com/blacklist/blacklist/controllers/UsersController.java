@@ -25,9 +25,9 @@ public class UsersController {
         return ResponseEntity.ok(usersService.getAllUsers());
     }
 
-    @GetMapping("/users/{job_number}")
+    @GetMapping("/users/{jobNumber}")
     @Operation(summary = "Возвращает пользователя по ID")
-    public ResponseEntity<UsersDTO> getUserById(@PathVariable("job_number") String job_number) {
+    public ResponseEntity<UsersDTO> getUserById(@PathVariable("jobNumber") String job_number) {
         return ResponseEntity.ok(usersService.getUserByJobNumber(job_number));
     }
 
@@ -37,5 +37,17 @@ public class UsersController {
         UsersDTO usersDTO = usersService.addUser(userDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(usersDTO);
     }
+
+    @DeleteMapping("/users/{jobNumber}")
+    @Operation(summary = "Удаление пользователя по jobNumber")
+    public ResponseEntity<String> deleteUser(@PathVariable("jobNumber") String job_number) {
+        boolean deleteUsers = usersService.deleteUsersByJobNumber(job_number);
+        if (deleteUsers) {
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Users not found");
+        }
+    }
+
 }
 

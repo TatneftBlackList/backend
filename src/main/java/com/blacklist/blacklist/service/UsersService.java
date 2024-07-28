@@ -60,7 +60,17 @@ public class UsersService {
             .build();
     usersRepository.save(usersModel);
     return convertToUsersDTO(usersModel);
-}
+    }
+
+    public boolean deleteUsersByJobNumber(String jobNumber) {
+        UsersModel usersModel = usersRepository.findByJobNumber(jobNumber).orElse(null);
+        if (usersModel != null) {
+            usersRepository.delete(usersModel);
+            return true;
+        } else {
+            return false;
+        }
+    }
 
 
     private UsersDTO convertToUsersDTO(UsersModel usersModel) {
