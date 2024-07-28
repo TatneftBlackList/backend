@@ -1,4 +1,4 @@
-package com.blacklist.blacklist.models.entity;
+package com.blacklist.blacklist.models.enums;
 
 public enum ERole {
     ROLE_USER,

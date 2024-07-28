@@ -1,8 +1,11 @@
 package com.blacklist.blacklist.models.entity;
 
+import com.blacklist.blacklist.models.enums.EPermissions;
+import io.hypersistence.utils.hibernate.type.basic.PostgreSQLEnumType;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.hibernate.annotations.Type;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -20,18 +23,10 @@ public class PermissionsModel {
     @GeneratedValue(strategy = GenerationType.AUTO)
     long id;
 
-    @Column(name = "created")
-    boolean created;
-
-    @Column(name = "read")
-    boolean read;
-
-    @Column(name = "delete")
-    boolean delete;
-
-    @Column(name = "update")
-    boolean update;
-
+    @Enumerated(EnumType.STRING)
+    @Type(PostgreSQLEnumType.class)
+    @Column(name = "permission", columnDefinition = "permission")
+    EPermissions ePermissions;
 
     @ManyToMany(mappedBy = "permissions")
     Set<UsersModel> usersModels = new HashSet<>();

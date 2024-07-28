@@ -1,5 +1,6 @@
 package com.blacklist.blacklist.models.entity;
 
+import com.blacklist.blacklist.models.enums.ERole;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
