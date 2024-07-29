@@ -15,5 +15,5 @@ public class UsersDTO {
     String jobNumber;
     String firstName;
     String lastName;
-    Set<EPermissions> permissions;
+    Set<Long> permissions;
 }

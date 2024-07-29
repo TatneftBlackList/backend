@@ -27,20 +27,9 @@ public class UsersService {
 
     public List<UsersDTO> getAllUsers() {
         List<UsersModel> usersList = usersRepository.findAll();
-        List<UsersDTO> usersDTOList = new ArrayList<>();
-
-        for (UsersModel usersModel : usersList) {
-            UsersDTO usersDTO = UsersDTO.builder()
-                    .jobNumber(usersModel.getJobNumber())
-                    .firstName(usersModel.getFirstName())
-                    .lastName(usersModel.getLastName())
-                    .permissions(usersModel.getPermissions().stream()
-                            .map(PermissionsModel::getEPermissions)
-                            .collect(Collectors.toSet()))
-                    .build();
-            usersDTOList.add(usersDTO);
-        }
-        return usersDTOList;
+        return usersList.stream()
+                .map(this::convertToUsersDTO)
+                .collect(Collectors.toList());
     }
     public UsersDTO getUserByJobNumber(String jobNumber) {
         Optional<UsersModel> usersModel = usersRepository.findByJobNumber(jobNumber);
@@ -49,8 +38,8 @@ public class UsersService {
 
     public UsersDTO addUser(UsersDTO usersDTO) {
     Set<PermissionsModel> permissions = usersDTO.getPermissions().stream()
-            .map(permission -> permissionsRepository.findByePermissions(permission)
-                    .orElseThrow(() -> new RuntimeException("Permission not found: " + permission)))
+            .map(permissionId -> permissionsRepository.findById(permissionId)
+                    .orElseThrow(() -> new RuntimeException("Permission not found: " + permissionId)))
             .collect(Collectors.toSet());
     UsersModel usersModel = UsersModel.builder()
             .jobNumber(usersDTO.getJobNumber())
@@ -72,16 +61,59 @@ public class UsersService {
         }
     }
 
+    public UsersDTO updateUser(UsersDTO usersDTO, String jobNumber) {
+        UsersModel existingUser = usersRepository.findByJobNumber(jobNumber).orElse(null);
+        if (existingUser != null) {
+            existingUser.setFirstName(usersDTO.getFirstName());
+            existingUser.setLastName(usersDTO.getLastName());
+
+            Set<PermissionsModel> permissions = usersDTO.getPermissions().stream()
+                    .map(permissionId -> permissionsRepository.findById(permissionId)
+                            .orElseThrow(() -> new RuntimeException("Permission not found: " + permissionId)))
+                    .collect(Collectors.toSet());
+            existingUser.setPermissions(permissions);
+
+            usersRepository.save(existingUser);
+
+            return convertToUsersDTO(existingUser);
+        }
+
+        throw new RuntimeException("User not found: " + jobNumber);
+    }
+
+    public UsersDTO partialUserUpdate(UsersDTO usersDTO, String jobNumber) {
+        UsersModel existingUser = usersRepository.findByJobNumber(jobNumber).orElse(null);
+        if (existingUser != null) {
+            if (usersDTO.getFirstName() != null) {
+                existingUser.setFirstName(usersDTO.getFirstName());
+            }
+            if (usersDTO.getLastName() != null) {
+                existingUser.setLastName(usersDTO.getLastName());
+            }
+            if (usersDTO.getPermissions() != null && !usersDTO.getPermissions().isEmpty()) {
+                Set<PermissionsModel> permissions = usersDTO.getPermissions().stream()
+                        .map(permissionId -> permissionsRepository.findById(permissionId)
+                                .orElseThrow(() -> new RuntimeException("Permission not found: " + permissionId)))
+                        .collect(Collectors.toSet());
+                existingUser.setPermissions(permissions);
+            }
+
+            usersRepository.save(existingUser);
+            return convertToUsersDTO(existingUser);
+        }
+        throw new RuntimeException("User not found: " + jobNumber);
+    }
+
 
     private UsersDTO convertToUsersDTO(UsersModel usersModel) {
-    return UsersDTO.builder()
-            .jobNumber(usersModel.getJobNumber())
-            .firstName(usersModel.getFirstName())
-            .lastName(usersModel.getLastName())
-            .permissions(usersModel.getPermissions().stream()
-                    .map(PermissionsModel::getEPermissions)
-                    .collect(Collectors.toSet()))
-            .build();
+        return UsersDTO.builder()
+                .jobNumber(usersModel.getJobNumber())
+                .firstName(usersModel.getFirstName())
+                .lastName(usersModel.getLastName())
+                .permissions(usersModel.getPermissions().stream()
+                        .map(PermissionsModel::getId)
+                        .collect(Collectors.toSet()))
+                .build();
     }
 
 }

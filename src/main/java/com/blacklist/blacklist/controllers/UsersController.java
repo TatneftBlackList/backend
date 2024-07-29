@@ -1,5 +1,6 @@
 package com.blacklist.blacklist.controllers;
 
+import com.blacklist.blacklist.database.repository.UsersRepository;
 import com.blacklist.blacklist.models.dto.UsersDTO;
 import com.blacklist.blacklist.service.UsersService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -18,6 +19,8 @@ public class UsersController {
 
     @Autowired
     private UsersService usersService;
+    @Autowired
+    private UsersRepository usersRepository;
 
     @GetMapping("/users")
     @Operation(summary = "Возвращает список пользователей")
@@ -49,5 +52,18 @@ public class UsersController {
         }
     }
 
+    @PutMapping("/users/{jobNumber}")
+    @Operation(summary = "Обновление всего ресурса по jobNumber")
+    public ResponseEntity<UsersDTO> updateUser(@PathVariable("jobNumber") String job_number, @RequestBody UsersDTO userDTO) {
+        UsersDTO usersDTOResponse = usersService.updateUser(userDTO, job_number);
+        return ResponseEntity.ok(usersDTOResponse);
+    }
+
+    @PatchMapping("/users/{jobNumber}")
+    @Operation(summary = "Частичное обновление ресурса по jobNumber")
+    public ResponseEntity<UsersDTO> partialUpdateUser(@PathVariable("jobNumber") String job_number, @RequestBody UsersDTO userDTO) {
+        UsersDTO usersDTOResponse = usersService.partialUserUpdate(userDTO, job_number);
+        return ResponseEntity.ok(usersDTOResponse);
+    }
 }
 
